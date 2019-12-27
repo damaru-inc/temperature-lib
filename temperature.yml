@@ -1,0 +1,40 @@
+# vim: set ts=2 sw=2 sts=2 expandtab :
+asyncapi: 2.0.0
+id: 'urn:temperature-lib'
+defaultContentType: 'application/xml'
+info:
+  title: Solace Temperature Demo
+  version: 1.0.0
+  description: |
+    Transmits temperature readings.
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0'
+  x-java-package: 'com.solace.temperature'
+  x-artifact-id: 'temperature'
+  x-group-id: 'com.solace'
+channels:
+  temperature/data:
+    x-java-class: 'TemperatureDataChannel'
+    subscribe:
+      message:
+        name: TemperatureMessage
+        $ref: '#/components/messages/TemperatureMessage'
+components:
+  messages:
+    TemperatureMessage:
+      name: temperatureMessage
+      summary: A temperature message
+      contentType: 'application/json'
+      payload:
+        $ref: '#/components/schemas/Temperature'
+  schemas:
+    Temperature:
+      title: Temperature
+      properties:
+        sensorId:
+          type: integer
+        time:
+          type: integer
+        temperature:
+          type: number
